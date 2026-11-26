@@ -302,20 +302,32 @@ public class OgnlPsUtils {
         PsiClass nextContainingClass = currentContainingClass.getContainingClass();
         if (nextContainingClass == null) {
             // 如果当前不是内部类  nextContainingClass= null;
-            qualifiedClassName = currentContainingClass.getQualifiedName();
-            return qualifiedClassName;
+            return qualifiedName(currentContainingClass);
         }
 
         // 处理内部类的逻辑 Outer$Inner  eg trace Outer$Inner  method  https://github.com/alibaba/arthas/issues/71
         List<String> ognlQualifiedClassNameArray = Lists.newArrayList();
-        ognlQualifiedClassNameArray.add(currentContainingClass.getNameIdentifier().getText());
-        currentContainingClass = currentContainingClass.getContainingClass();
+        String currentName = className(currentContainingClass);
+        if (currentName.isEmpty()) {
+            // 匿名类/枚举常量类体/不完整 PSI 可能没有 nameIdentifier，
+            // 此时无法安全构造 Arthas 类名，返回空串由调用方跳过。
+            return "";
+        }
+        ognlQualifiedClassNameArray.add(currentName);
+        currentContainingClass = nextContainingClass;
         while (currentContainingClass != null) {
             ognlQualifiedClassNameArray.add(ArthasCommandConstants.OGNL_INNER_CLASS_SEPARATOR);
-            String name = currentContainingClass.getNameIdentifier().getText();
+            String name = className(currentContainingClass);
+            if (name.isEmpty()) {
+                return "";
+            }
             nextContainingClass = currentContainingClass.getContainingClass();
             if (nextContainingClass == null) {
-                ognlQualifiedClassNameArray.add(currentContainingClass.getQualifiedName());
+                String outerQualifiedName = qualifiedName(currentContainingClass);
+                if (outerQualifiedName.isEmpty()) {
+                    return "";
+                }
+                ognlQualifiedClassNameArray.add(outerQualifiedName);
             } else {
                 ognlQualifiedClassNameArray.add(name);
             }
@@ -325,6 +337,26 @@ public class OgnlPsUtils {
         qualifiedClassName = String.join("", ognlQualifiedClassNameArray);
         return qualifiedClassName;
 
+    }
+
+    private static String className(PsiClass psiClass) {
+        if (psiClass == null) {
+            return "";
+        }
+        PsiIdentifier identifier = psiClass.getNameIdentifier();
+        if (identifier != null) {
+            return identifier.getText();
+        }
+        String name = psiClass.getName();
+        return name == null ? "" : name;
+    }
+
+    private static String qualifiedName(PsiClass psiClass) {
+        if (psiClass == null) {
+            return "";
+        }
+        String qualifiedName = psiClass.getQualifiedName();
+        return qualifiedName == null ? "" : qualifiedName;
     }
 
     /**

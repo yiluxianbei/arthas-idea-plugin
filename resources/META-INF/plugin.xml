@@ -1,7 +1,7 @@
 <idea-plugin require-restart="true">
     <id>com.github.wangji92.arthas.plugin</id>
     <name>arthas idea</name>
-    <version>2.51</version>
+    <version>2.52</version>
     <vendor email="983433479@qq.com" url="https://github.com/WangJi92/arthas-idea-plugin">汪小哥</vendor>
 
     <description><![CDATA[
@@ -42,6 +42,13 @@
     ]]></description>
 
     <change-notes><![CDATA[
+    <p>2.52-RELEASE</p>
+      <ul>
+        <li>trace 支持多层级命令生成：右键方法后选择层级，基于项目源码静态解析调用链，生成一条 trace -E 命令</li>
+        <li>固定过滤 getter/setter、空方法、synthetic/compiler-generated、所有 equals 方法、简单 toString/hashCode 和日志方法</li>
+        <li>接口/抽象方法作为叶子匹配目标，依赖 Arthas -E 子类搜索覆盖实现类</li>
+        <li>trace 弹窗支持排除包/类/方法：包规则 com.foo 仅当前包、com.foo.* 含子包；命中排除规则后剪枝，规则项目级保存</li>
+      </ul>
     <p>2.51-RELEASE</p>
       <ul>
         <li>support arthas line command: insert probe at specified source line to observe variables <a href="https://arthas.aliyun.com/doc/line.html">arthas line command</a></li>

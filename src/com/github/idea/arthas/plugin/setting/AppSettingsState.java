@@ -45,6 +45,21 @@ public class AppSettingsState implements PersistentStateComponent<AppSettingsSta
      * 跳过jdk trace
      */
     public boolean traceSkipJdk = false;
+
+    /**
+     * trace 排除包规则，每行一个；com.foo 仅当前包，com.foo.* 含子包
+     */
+    public String traceExcludePackages = "";
+
+    /**
+     * trace 排除类规则，每行一个全限定类名
+     */
+    public String traceExcludeClasses = "";
+
+    /**
+     * trace 排除方法规则，每行一个 全限定类名#方法名
+     */
+    public String traceExcludeMethods = "";
     /**
      * 调用次数
      */

@@ -4,9 +4,13 @@ import com.github.idea.arthas.plugin.common.command.CommandContext;
 import com.github.idea.arthas.plugin.utils.ClipboardUtils;
 import com.github.idea.arthas.plugin.utils.NotifyUtils;
 import com.github.idea.arthas.plugin.common.enums.ShellScriptCommandEnum;
+import com.github.idea.arthas.plugin.ui.ArthasTraceDepthDialog;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiMethod;
+
+import javax.swing.SwingUtilities;
 
 /**
  * trace 命令  https://arthas.aliyun.com/doc/trace.html 默认打开 不跳过JDK的方法
@@ -22,6 +26,12 @@ public class ArthasTraceCommandAction extends BaseArthasPluginAction {
 
     @Override
     public void doCommand(String className, String methodName, Project project, PsiElement psiElement, Editor editor) {
+        if (psiElement instanceof PsiMethod) {
+            PsiMethod psiMethod = (PsiMethod) psiElement;
+            SwingUtilities.invokeLater(() -> new ArthasTraceDepthDialog(project, psiMethod, editor).open());
+            return;
+        }
+
         CommandContext commandContext = new CommandContext(project, psiElement);
         String command = ShellScriptCommandEnum.TRACE.getArthasCommand(commandContext);
         ClipboardUtils.setClipboardString(command);

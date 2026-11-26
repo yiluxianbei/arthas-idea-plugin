@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.github.idea.arthas.plugin.ui.ArthasTraceDepthDialog">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="8" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="20" y="40" width="880" height="700"/>
+    </constraints>
+    <properties>
+      <minimumSize width="800" height="620"/>
+      <preferredSize width="880" height="700"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="a1b01" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="层级"/>
+        </properties>
+      </component>
+      <component id="a1b02" class="javax.swing.JSpinner" binding="depthSpinner">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <toolTipText value="1 = 仅当前方法；N = 向下 N-1 层"/>
+        </properties>
+      </component>
+      <component id="a1b03" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="1 = 仅当前方法；N = 向下 N-1 层"/>
+        </properties>
+      </component>
+      <component id="a1b04" class="javax.swing.JLabel" binding="statsLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="a1b11" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="排除包"/>
+          <toolTipText value="com.foo 仅当前包；com.foo.* 含当前包及所有子包"/>
+        </properties>
+      </component>
+      <scrollpane id="a1b12">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="55"/>
+          </grid>
+        </constraints>
+        <properties>
+          <horizontalScrollBarPolicy value="30"/>
+          <verticalScrollBarPolicy value="22"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="a1b13" class="javax.swing.JTextArea" binding="excludePackagesTextArea">
+            <constraints/>
+            <properties>
+              <lineWrap value="false"/>
+              <margin top="6" left="6" bottom="6" right="6"/>
+              <text value=""/>
+              <toolTipText value="每行一条；com.foo 仅当前包，com.foo.* 含当前包及所有子包"/>
+              <wrapStyleWord value="false"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="a1b14" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="排除类"/>
+          <toolTipText value="全限定类名精确匹配；Outer 不自动排除 Outer$Inner"/>
+        </properties>
+      </component>
+      <scrollpane id="a1b15">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="55"/>
+          </grid>
+        </constraints>
+        <properties>
+          <horizontalScrollBarPolicy value="30"/>
+          <verticalScrollBarPolicy value="22"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="a1b16" class="javax.swing.JTextArea" binding="excludeClassesTextArea">
+            <constraints/>
+            <properties>
+              <lineWrap value="false"/>
+              <margin top="6" left="6" bottom="6" right="6"/>
+              <text value=""/>
+              <toolTipText value="每行一条全限定类名；Outer$Inner 或 Outer.Inner 均可"/>
+              <wrapStyleWord value="false"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="a1b17" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="排除方法"/>
+          <toolTipText value="全限定类名#方法名精确匹配；同名重载全部排除"/>
+        </properties>
+      </component>
+      <scrollpane id="a1b18">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="55"/>
+          </grid>
+        </constraints>
+        <properties>
+          <horizontalScrollBarPolicy value="30"/>
+          <verticalScrollBarPolicy value="22"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="a1b19" class="javax.swing.JTextArea" binding="excludeMethodsTextArea">
+            <constraints/>
+            <properties>
+              <lineWrap value="false"/>
+              <margin top="6" left="6" bottom="6" right="6"/>
+              <text value=""/>
+              <toolTipText value="每行一条，例如 com.foo.Bar#method"/>
+              <wrapStyleWord value="false"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="a1b20" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="命令预览（可编辑）"/>
+        </properties>
+      </component>
+      <scrollpane id="a1b21">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="200"/>
+          </grid>
+        </constraints>
+        <properties>
+          <horizontalScrollBarPolicy value="31"/>
+          <verticalScrollBarPolicy value="22"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="a1b22" class="javax.swing.JTextArea" binding="commandTextArea">
+            <constraints/>
+            <properties>
+              <lineWrap value="true"/>
+              <margin top="8" left="8" bottom="8" right="8"/>
+              <requestFocusEnabled value="true"/>
+              <text value=""/>
+              <wrapStyleWord value="true"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="a1b23" class="com.intellij.ui.components.ActionLink" binding="traceHelp" custom-create="true">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="trace help"/>
+        </properties>
+      </component>
+      <component id="a1b24" class="javax.swing.JButton" binding="closeButton">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="关闭"/>
+        </properties>
+      </component>
+      <component id="a1b25" class="javax.swing.JButton" binding="copyButton" default-binding="true">
+        <constraints>
+          <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="复制命令"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
